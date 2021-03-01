@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Gymnasium Wülfrath</string>
+    <string name="stundenplaene">Stundenpläne</string>
+    <string name="home">Home</string>
+    <string name="logineo">logineo</string>
+    <string name="online">online</string>
+    <string name="btn_sekI">Sekundarstufe I</string>
+    <string name="btn_sekII">Sekundarstufe II</string>
+</resources>
