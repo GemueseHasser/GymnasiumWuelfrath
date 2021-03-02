@@ -2,46 +2,71 @@ package de.jonas.gymnasiumwuelfrath;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
+import android.widget.ProgressBar;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import android.os.Bundle;
 import androidx.appcompat.widget.Toolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class PlansActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener,
-    View.OnClickListener {
+public class HomeActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
-    private Button sekI;
-    private Button sekII;
+    private WebView web;
+
+    private ProgressBar progress;
+
+    private Handler handler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_plans);
+        setContentView(R.layout.activity_home);
 
-        this.sekI = findViewById(R.id.sekI);
-        this.sekII = findViewById(R.id.sekII);
+        this.handler = new Handler(Looper.myLooper());
 
-        final Toolbar toolbar = findViewById(R.id.toolbarPlan);
+        final Toolbar toolbar = findViewById(R.id.toolbar);
+
+        this.progress = findViewById(R.id.progress);
+
+        this.web = findViewById(R.id.webPDF);
+
+        final BottomNavigationView nav = findViewById(R.id.nav);
+
+        load();
+
         toolbar.setTitle(Html.fromHtml(
             "<font color=#66626C>"
-                + "Stundenpläne"
+                + "Gymnasium Wülfrath"
                 + "</font>",
             Html.FROM_HTML_MODE_LEGACY
         ));
         setSupportActionBar(toolbar);
 
-        sekI.setOnClickListener(this);
-        sekII.setOnClickListener(this);
+        web.setWebViewClient(new WebViewClient());
+        WebSettings settings = web.getSettings();
+        settings.setJavaScriptEnabled(true);
+        web.loadUrl("https://gymnasium-wuelfrath.de/");
 
-        final BottomNavigationView nav = findViewById(R.id.navPlan);
-        nav.setSelectedItemId(R.id.plans);
+        nav.setSelectedItemId(R.id.homeNav);
         nav.setOnNavigationItemSelectedListener(this);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (web.canGoBack()) {
+            web.goBack();
+        } else {
+            super.onBackPressed();
+        }
     }
 
     @Override
@@ -75,26 +100,17 @@ public class PlansActivity extends AppCompatActivity implements BottomNavigation
     public boolean onNavigationItemSelected(@NonNull final MenuItem item) {
         final int id = item.getItemId();
 
-        if (id == R.id.homeNav) {
+        if (id == R.id.plans) {
             finish();
-            Intent home = new Intent(PlansActivity.this, HomeActivity.class);
-            startActivity(home);
-            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+            Intent plans = new Intent(HomeActivity.this, PlansActivity.class);
+            startActivity(plans);
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         }
         return true;
     }
 
-    @Override
-    public void onClick(final View v) {
-        if (v.equals(sekI)) {
-            final Intent pdfI = new Intent(PlansActivity.this, PdfActivity.class);
-            pdfI.putExtra("state", 0);
-            startActivity(pdfI);
-        }
-        if (v.equals(sekII)) {
-            final Intent pdfII = new Intent(PlansActivity.this, PdfActivity.class);
-            pdfII.putExtra("state", 1);
-            startActivity(pdfII);
-        }
+    private void load() {
+        progress.setVisibility(View.VISIBLE);
+        handler.postDelayed(() -> progress.setVisibility(View.GONE), 3500);
     }
 }

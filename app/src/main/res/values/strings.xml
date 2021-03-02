@@ -6,4 +6,5 @@
     <string name="online">online</string>
     <string name="btn_sekI">Sekundarstufe I</string>
     <string name="btn_sekII">Sekundarstufe II</string>
+    <string name="welcome">Willkommen</string>
 </resources>

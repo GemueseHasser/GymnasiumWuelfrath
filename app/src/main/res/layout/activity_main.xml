@@ -6,50 +6,20 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".MainActivity">
-    <androidx.appcompat.widget.Toolbar
-            android:layout_width="0dp"
-            android:layout_height="51dp"
-            android:background="#C4C6CF"
-            android:theme="?attr/actionBarTheme"
-            android:minHeight="?attr/actionBarSize"
-            android:id="@+id/toolbar"
-            app:logo="@mipmap/ic_gym"
-            app:layout_constraintTop_toTopOf="parent"
-            app:titleMarginStart="25dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:titleTextAppearance="@style/ToolbarStyle"
-            app:menu="@menu/menu"/>
-    <WebView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/webPDF"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar"
-            android:layout_marginBottom="56dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHorizontal_bias="0.333" app:layout_constraintVertical_bias="1.0"
-            android:layout_marginTop="51dp">
-        <ProgressBar
-                style="?android:attr/progressBarStyle"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/progress"/>
-    </WebView>
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:layout_width="0dp"
-            android:layout_height="56dp"
-            android:id="@+id/nav"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginStart="1dp"
-            android:layout_marginEnd="1dp"
-            android:backgroundTint="#2196F3"
-            android:background="#2196F3"
-            app:menu="@menu/navigation"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintVertical_bias="1.0"/>
+
+    <ImageView
+            android:layout_width="49dp"
+            android:layout_height="0dp" app:srcCompat="@mipmap/ic_launcher" android:id="@+id/welcomeImage"
+            android:layout_marginTop="304dp"
+            android:layout_marginBottom="20dp" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/welcomeText" app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+    <TextView
+            android:text="@string/welcome"
+            android:layout_width="136dp"
+            android:layout_height="0dp" android:id="@+id/welcomeText"
+            app:layout_constraintTop_toBottomOf="@+id/welcomeImage"
+            android:layout_marginBottom="258dp" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintBottom_toBottomOf="parent"
+            android:textSize="18sp" android:gravity="center" android:foregroundGravity="center"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
