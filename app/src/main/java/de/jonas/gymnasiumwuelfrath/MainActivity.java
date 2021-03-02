@@ -3,12 +3,16 @@ package de.jonas.gymnasiumwuelfrath;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ProgressBar;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -18,12 +22,27 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     private WebView web;
 
+    private ProgressBar progress;
+
+    private Handler handler;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        this.handler = new Handler(Looper.myLooper());
+
         final Toolbar toolbar = findViewById(R.id.toolbar);
+
+        this.progress = findViewById(R.id.progress);
+
+        this.web = findViewById(R.id.webPDF);
+
+        final BottomNavigationView nav = findViewById(R.id.nav);
+
+        load();
+
         toolbar.setTitle(Html.fromHtml(
             "<font color=#66626C>"
                 + "Gymnasium Wülfrath"
@@ -32,13 +51,11 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         ));
         setSupportActionBar(toolbar);
 
-        web = findViewById(R.id.web);
         web.setWebViewClient(new WebViewClient());
         WebSettings settings = web.getSettings();
         settings.setJavaScriptEnabled(true);
         web.loadUrl("https://gymnasium-wuelfrath.de/");
 
-        final BottomNavigationView nav = findViewById(R.id.nav);
         nav.setSelectedItemId(R.id.homeNav);
         nav.setOnNavigationItemSelectedListener(this);
     }
@@ -90,5 +107,10 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         }
         return true;
+    }
+
+    private void load() {
+        progress.setVisibility(View.VISIBLE);
+        handler.postDelayed(() -> progress.setVisibility(View.GONE), 3500);
     }
 }

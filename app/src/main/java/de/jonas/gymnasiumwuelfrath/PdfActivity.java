@@ -1,9 +1,10 @@
 package de.jonas.gymnasiumwuelfrath;
 
-import android.net.Uri;
 import android.os.Bundle;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import androidx.appcompat.app.AppCompatActivity;
-import com.github.barteksc.pdfviewer.PDFView;
 
 public class PdfActivity extends AppCompatActivity {
 
@@ -12,25 +13,18 @@ public class PdfActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pdf);
 
+        final WebView web = findViewById(R.id.webPDF);
+
         final int state = this.getIntent().getExtras().getInt("state");
 
-        final PDFView view = findViewById(R.id.pdf);
+        final String[] currentAddress = new String[] {
+            "https://gymnasium-wuelfrath.de/wp-content/uploads/2014/07/Plan-20_21-2.-HJ-SekI.pdf/",
+            "https://gymnasium-wuelfrath.de/wp-content/uploads/2014/07/Plan-20_21-2.-HJ-SekII.pdf/",
+        };
 
-        switch (state) {
-            case 1:
-                view.fromUri(Uri.parse(
-                    "https://gymnasium-wuelfrath.de/wp-content/uploads/2014/07/Plan-20_21-2.-HJ-SekI.pdf"
-                )).load();
-                break;
-
-            case 2:
-                view.fromUri(Uri.parse(
-                    "https://gymnasium-wuelfrath.de/wp-content/uploads/2014/07/Plan-20_21-2.-HJ-SekII.pdf"
-                )).load();
-                break;
-
-            default:
-                break;
-        }
+        web.setWebViewClient(new WebViewClient());
+        WebSettings settings = web.getSettings();
+        settings.setJavaScriptEnabled(true);
+        web.loadUrl("https://drive.google.com/viewerng/viewer?embedded=true&url=" + currentAddress[state]);
     }
 }

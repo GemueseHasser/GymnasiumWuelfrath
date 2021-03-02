@@ -16,7 +16,7 @@
             app:layout_constraintStart_toStartOf="parent"/>
     <androidx.appcompat.widget.Toolbar
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="51dp"
             android:background="#C4C6CF"
             android:theme="?attr/actionBarTheme"
             android:minHeight="?attr/actionBarSize"

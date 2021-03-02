@@ -87,13 +87,13 @@ public class PlansActivity extends AppCompatActivity implements BottomNavigation
     @Override
     public void onClick(final View v) {
         if (v.equals(sekI)) {
-            final Intent pdfI = new Intent(this, PdfActivity.class);
-            pdfI.putExtra("state", 1);
+            final Intent pdfI = new Intent(PlansActivity.this, PdfActivity.class);
+            pdfI.putExtra("state", 0);
             startActivity(pdfI);
         }
         if (v.equals(sekII)) {
-            final Intent pdfII = new Intent(this, PdfActivity.class);
-            pdfII.putExtra("state", 2);
+            final Intent pdfII = new Intent(PlansActivity.this, PdfActivity.class);
+            pdfII.putExtra("state", 1);
             startActivity(pdfII);
         }
     }
